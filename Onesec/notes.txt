@@ -1,0 +1,22 @@
+#! /bin/bash
+
+for file in "${@}"
+
+do
+xavg=$(cat ${file} | gawk 'NF > 1 {print $2}' | tail -n +2 | ./../scripts/average.py) 
+yavg=$(cat ${file} | gawk 'NF > 1 {print $3}' | tail -n +2 | ./../scripts/average.py)
+
+xstddev=$(cat ${file} | gawk 'NF > 1 {print $2}' | tail -n +2 | ./../scripts/stddev)
+ystddev=$(cat ${file} | gawk 'NF > 1 {print $3}' | tail -n +2 | ./../scripts/stddev)
+Tstddev=$(echo "sqrt((${xstddev}^2)+(${ystddev}^2))" | bc)
+
+echo "${file} ${xavg} ${yavg} ${xstddev} ${ystddev} ${Tstddev}"
+done | column -t
+
+
+## one sec
+
+startime =$(head data-201745135111.txt -n2 | tail -n1 | cut -d " " -fl)
+
+cat data-201745135111.txt | gawk -v  "x=$startime" '$1 < x+1000{print}'
+

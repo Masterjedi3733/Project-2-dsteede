@@ -1,0 +1,3 @@
+#! /bin/bash
+
+meanx=(awk '{total += $2 } END { print total/NR }')

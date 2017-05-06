@@ -1,0 +1,10 @@
+#! /bin/bash
+
+
+for file in "${@}"
+do
+
+./avgcol ${file}
+
+done |sort -k 4 -n
+
