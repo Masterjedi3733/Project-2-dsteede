@@ -1,0 +1,5 @@
+#! /bin/bash
+name=$(basename ${1} .txt)
+./mean ${1} | ./../scripts/clark/hist | ./../scripts/clark/plot -r "set term png; set output 'graph-${name}.png'; set xlabel 'Distance from Mean (pixels)'; set ylabel 'Occurance rate'; set title '${1}'; unset key; set style fill solid" -m "with boxes"
+
+
